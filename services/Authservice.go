@@ -10,13 +10,13 @@ type auth struct {
 	Password string `json:"password"`
 }
 
-func login(response http.ResponseWriter, request *http.Request) {
+func Login(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
 	response.Header().Set("Access-Control-Allow-Origin", "*")
 	var aut auth
 
 	json.NewDecoder(request.Body).Decode(&aut)
-	res := "heyy"
+	res := "heuuuyy"
 
 	response.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(response).Encode(res)

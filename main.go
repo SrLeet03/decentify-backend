@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/handlers"
 )
@@ -11,8 +10,7 @@ import (
 func main() {
 	router := Router()
 
-	environment := os.Getenv("ENV_VARIABLE")
-	fmt.Println("Starting the Server", environment)
+	fmt.Println("Starting the Server")
 	err := http.ListenAndServe(":4050",
 		handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
 			handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}),
