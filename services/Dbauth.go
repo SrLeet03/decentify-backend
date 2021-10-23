@@ -26,7 +26,7 @@ func ConnectionwithDatabase() {
 	Con = con
 	if err != nil {
 		fmt.Println("Error while connectiong with sql databases", err.Error())
-		return
+		//return
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -35,7 +35,7 @@ func ConnectionwithDatabase() {
 	client, err = mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		fmt.Println("Error while connectiong with nosql databases", err.Error())
-		return
+		//return
 	}
 
 	fmt.Println("connection with sql and mongo the databases establibshed")

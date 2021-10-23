@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/SrLeet03/decentify-backend/actions"
@@ -44,18 +45,28 @@ func Register(response http.ResponseWriter, request *http.Request) {
 	json.NewDecoder(request.Body).Decode(&aut)
 
 	aut.Uuid = actions.GenerateUUID()
+	var findid models.RegisReq
+	Con.Last(&findid)
+	fmt.Println(findid)
+	aut.Userid = findid.Userid + 1
 
-	aut.UserID = 0
-	// collection := client.Database("decentify").Collection("users")
+	// collection := client.Database("decentify").Collection("Users")
 	// ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	// defer cancel()
-	// _, err := collection.InsertOne(ctx, aut)
+	//_, err := collection.InsertOne(ctx, aut)
+
 	err := Con.Create(&aut)
 
 	if err.RowsAffected == 0 || err.Error != nil {
 		response.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(response).Encode(("failed"))
+		json.NewEncoder(response).Encode(err.Error)
+		return
 	}
+	// if err != nil {
+	// 	response.WriteHeader(http.StatusInternalServerError)
+	// 	json.NewEncoder(response).Encode(err.Error())
+	// 	return
+	// }
 	response.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(response).Encode("success")
 }

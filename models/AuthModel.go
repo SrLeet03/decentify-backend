@@ -10,9 +10,9 @@ type LoginResponse struct {
 	Error  string `json:"error"`
 }
 type RegisReq struct {
+	Userid   int64  `json:"id" gorm:"primary_key"`
 	Name     string `json:"name" bson:"name" `
-	UserID   int64  `gorm:"AUTO_INCREMENT;unique; not null"`
-	Uuid     string
+	Uuid     string `json:"uuid" bson:"uuid" `
 	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
 }
