@@ -1,5 +1,7 @@
 package models
 
+import "github.com/dgrijalva/jwt-go"
+
 type LoginReq struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -15,4 +17,8 @@ type RegisReq struct {
 	Uuid     string `json:"uuid" bson:"uuid" `
 	Username string `json:"username" bson:"username"`
 	Password string `json:"password" bson:"password"`
+}
+type JwtSchema struct {
+	UUID string `json:"uuid"`
+	jwt.StandardClaims
 }

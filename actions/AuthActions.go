@@ -55,6 +55,27 @@ func CreateToken(userId string) (string, string) {
 	return token, ""
 }
 
+func ValidateToken(tokenString string) (string, string) {
+	token, err := jwt.ParseWithClaims(
+		tokenString,
+		&models.JwtSchema{},
+		func(token *jwt.Token) (interface{}, error) {
+			return []byte(os.Getenv("SECRET_KEY_JWT_TOKEN")), nil
+		},
+	)
+	if err != nil {
+		return "", "invali_token"
+	}
+	claims, ok := token.Claims.(*models.JwtSchema)
+	if !ok {
+		return "", "invali_token"
+	}
+	if claims.ExpiresAt < time.Now().UTC().Unix() {
+		return "", "token_expired"
+	}
+	return "valid_token", ""
+}
+
 func GenerateUUID() string {
 	uuidWithHyphen := uuid.New()
 	uuid := uuidWithHyphen.String()
