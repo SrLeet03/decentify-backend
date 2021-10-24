@@ -17,6 +17,7 @@ contract Decentify {
     address  public manager; 
     uint    public minContri;
     mapping( address=>bool) public doners;
+    uint  public totLen;
     Request[] public requests;
     
     modifier accessRestricted() {
@@ -34,12 +35,14 @@ contract Decentify {
     function Decentify(uint argforMIN) public {
         manager = msg.sender;
         minContri = argforMIN;
+        totLen = 0;
     }
 
     function donate() public payable {
 
         require(msg.value > minContri);
         doners[msg.sender] = true;
+        totLen++;
     }
 
     function createRequest(string des, uint value, address recp) 
@@ -57,6 +60,16 @@ contract Decentify {
         require(curRequest.approvers[msg.sender] == false);
         curRequest.apprCount++;
         curRequest.approvers[msg.sender] = true;
+    }
+
+    function greenflagForReq(uint index) public accessRestricted {
+        Request storage curRequest = requests[index];
+        require(curRequest.isComplete == false);
+        require((totLen/2) < curRequest.apprCount);
+        curRequest.isComplete = true;
+        curRequest.recepient.transfer(curRequest.value);
+        curRequest.isComplete = true;
+        
     }
  
 
