@@ -11,13 +11,19 @@ contract FunraiseFactory {
         address addoffunr;
     }
 
-    Fundra[] public fundraisers; 
+    address[] public fundraisers; 
+    mapping(address => string) public funrId;
 
     function createFunraiser(uint minAmo, string id) public {
         address curradd = new Funraiser(minAmo, msg.sender);
-        Fundra memory curFund = Fundra(id, curradd);
-        fundraisers.push(curFund);
+        funrId[curradd] = id; 
+        fundraisers.push(curradd);
     }
+
+    // function getallFundraisers() view public returns (address[]) {
+
+    //    return fundraisers;
+    // }
     
 }
 
