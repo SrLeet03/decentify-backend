@@ -2,7 +2,26 @@
 pragma solidity 0.4.17;
 
 
-contract Decentify {
+contract FunraiseFactory {
+      
+   
+    struct Fundra {
+
+        string id;
+        address addoffunr;
+    }
+
+    Fundra[] public fundraisers; 
+
+    function createFunraiser(uint minAmo, string id) public {
+        address curradd = new Funraiser(minAmo, msg.sender);
+        Fundra memory curFund = Fundra(id, curradd);
+        fundraisers.push(curFund);
+    }
+}
+
+
+contract Funraiser {
 
     struct Request {
 
@@ -32,8 +51,8 @@ contract Decentify {
         _;
     }
 
-    function Decentify(uint argforMIN) public {
-        manager = msg.sender;
+    function Funraiser(uint argforMIN, address owner) public {
+        manager = owner;
         minContri = argforMIN;
         totLen = 0;
     }
@@ -69,7 +88,7 @@ contract Decentify {
         curRequest.isComplete = true;
         curRequest.recepient.transfer(curRequest.value);
         curRequest.isComplete = true;
-        
+
     }
  
 
