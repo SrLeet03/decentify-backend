@@ -4,7 +4,7 @@ pragma solidity 0.4.17;
 
 contract Decentify {
 
-    struct Requests {
+    struct Request {
 
         string description;
         uint value;
@@ -14,10 +14,15 @@ contract Decentify {
     }
 
     address  public manager; 
-
     uint    public minContri;
+    mapping( address=>bool) public doners;
+    Request[] public requests;
     
-    address[] public doners;
+    modifier accessRestricted() {
+        
+        require(msg.sender == manager);
+        _;
+    }
 
     function Decentify(uint argforMIN) public {
         manager = msg.sender;
@@ -27,7 +32,14 @@ contract Decentify {
     function donate() public payable {
 
         require(msg.value > minContri);
-        doners.push(msg.sender);
+        doners[msg.sender] = true;
+    }
+
+    function createRequest(string des, uint value, address recp) 
+    public accessRestricted {
+        Request memory newReq  =  Request(des, value, recp, false);
+        requests.push(newReq);
     }
  
+
 }
