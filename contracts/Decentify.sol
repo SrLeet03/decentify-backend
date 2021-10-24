@@ -18,6 +18,7 @@ contract FunraiseFactory {
         Fundra memory curFund = Fundra(id, curradd);
         fundraisers.push(curFund);
     }
+    
 }
 
 
