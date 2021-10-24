@@ -50,8 +50,13 @@ contract Decentify {
         requests.push(newReq);
     }
 
-    function approveRequest() public accessApprove {
+    function approveRequest(uint index) public accessApprove {
 
+        Request storage curRequest = requests[index]; 
+
+        require(curRequest.approvers[msg.sender] == false);
+        curRequest.apprCount++;
+        curRequest.approvers[msg.sender] = true;
     }
  
 
