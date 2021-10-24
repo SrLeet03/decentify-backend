@@ -10,7 +10,8 @@ contract Decentify {
         uint value;
         address recepient;
         bool isComplete;
-
+        uint apprCount;
+        mapping(address => bool)approvers;
     }
 
     address  public manager; 
@@ -21,6 +22,12 @@ contract Decentify {
     modifier accessRestricted() {
         
         require(msg.sender == manager);
+        _;
+    }
+
+    modifier accessApprove() {
+        
+        require(doners[msg.sender] == true);
         _;
     }
 
@@ -37,8 +44,14 @@ contract Decentify {
 
     function createRequest(string des, uint value, address recp) 
     public accessRestricted {
-        Request memory newReq  =  Request(des, value, recp, false);
+        Request memory newReq  =  Request(des, value, recp, false, 0);
+        //here we don't need to inilize appovers map caz this is refr type dataType 
+        //and all others are value type.
         requests.push(newReq);
+    }
+
+    function approveRequest() public accessApprove {
+
     }
  
 
