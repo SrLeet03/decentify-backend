@@ -1,5 +1,5 @@
 
-pragma solidity 0.4.17;
+pragma solidity 0.8.9;
 
 
 contract FunraiseFactory {
@@ -11,24 +11,26 @@ contract FunraiseFactory {
         address addoffunr;
     }
 
-    address[] public fundraisers; 
-    mapping(address => string) public funrId;
+    Funraiser[] public fundraisers; 
+    mapping(Funraiser => string) public funrId;
 
-    function createFunraiser(uint minAmo, string id) public {
-        address curradd = new Funraiser(minAmo, msg.sender);
+    function createFunraiser(uint minAmo, string memory id) public {
+        Funraiser curradd = new Funraiser(minAmo, msg.sender);
         funrId[curradd] = id; 
         fundraisers.push(curradd);
     }
 
-    // function getallFundraisers() view public returns (address[]) {
+    function getallFundraisers() view public returns (Funraiser[] memory) {
 
-    //    return fundraisers;
-    // }
+    return fundraisers;
+}
     
 }
 
 
 contract Funraiser {
+
+    
 
     struct Request {
 
@@ -37,7 +39,7 @@ contract Funraiser {
         address recepient;
         bool isComplete;
         uint apprCount;
-        mapping(address => bool)approvers;
+        mapping(address => bool) approvers;
     }
 
     address  public manager; 
@@ -46,6 +48,10 @@ contract Funraiser {
     uint  public totLen;
     Request[] public requests;
     
+    constructor (uint val , address creator) public {
+        manager = creator;
+        minContri = val;
+    }
     modifier accessRestricted() {
         
         require(msg.sender == manager);
@@ -58,25 +64,24 @@ contract Funraiser {
         _;
     }
 
-    function Funraiser(uint argforMIN, address owner) public {
-        manager = owner;
-        minContri = argforMIN;
-        totLen = 0;
-    }
-
     function donate() public payable {
-
         require(msg.value > minContri);
         doners[msg.sender] = true;
         totLen++;
     }
 
-    function createRequest(string des, uint value, address recp) 
+    function createRequest(string memory des, uint value, address recp) 
     public accessRestricted {
-        Request memory newReq  =  Request(des, value, recp, false, 0);
+       // Request storage newReq  =  Request(des, value, recp, false, 0);
+        Request storage newRequest = requests.push();
+        newRequest.description = des;
+        newRequest.value = value;
+        newRequest.isComplete = false;
+        newRequest.apprCount = 0;
+        newRequest.recepient = recp;
         //here we don't need to inilize appovers map caz this is refr type dataType 
         //and all others are value type.
-        requests.push(newReq);
+        //requests.push(newReq);
     }
 
     function approveRequest(uint index) public accessApprove {
@@ -93,7 +98,7 @@ contract Funraiser {
         require(curRequest.isComplete == false);
         require((totLen/2) < curRequest.apprCount);
         curRequest.isComplete = true;
-        curRequest.recepient.transfer(curRequest.value);
+        payable(curRequest.recepient).transfer(curRequest.value);
         curRequest.isComplete = true;
 
     }

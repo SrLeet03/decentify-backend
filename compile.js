@@ -12,14 +12,25 @@ const contractPath = path.resolve(__dirname , 'contracts' , 'Decentify.sol' ) ;
 
 const source = fs.readFileSync(contractPath , 'utf8') ;
 
-const output = solc.compile(source , 1).contracts;
+var input = {
+    language: 'Solidity',
+    sources: {
+        'Decentify.sol' : {
+            content: source
+        }
+    },
+    settings: {
+        outputSelection: {
+            '*': {
+                '*': [ '*' ]
+            }
+        }
+    }
+}; 
+
+
+const output = JSON.parse(solc.compile(JSON.stringify(input))) ; 
 
 fs.ensureDirSync(buildPath)  ; 
 
-for (let it in output){
-    fs.outputJSONSync(
-        path.resolve(buildPath , contract + '.json'),
-        output[contract]
-    );
-}
-
+console.log(output);
