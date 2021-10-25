@@ -1,0 +1,27 @@
+{
+  "name": "decentify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrLeet03/decentify-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SrLeet03/decentify-backend/issues"
+  },
+  "homepage": "https://github.com/SrLeet03/decentify-backend#readme",
+  "dependencies": {
+    "fs-extra": "^10.0.0",
+    "path": "^0.12.7",
+    "solc": "^0.8.9"
+  }
+}
