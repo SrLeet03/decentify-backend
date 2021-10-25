@@ -33,4 +33,8 @@ const output = JSON.parse(solc.compile(JSON.stringify(input))) ;
 
 fs.ensureDirSync(buildPath)  ; 
 
+for(let it in output.contracts){
+    
+}
+
 console.log(output);
