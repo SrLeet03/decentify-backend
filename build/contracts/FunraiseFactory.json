@@ -18,7 +18,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -37,7 +38,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -68,7 +70,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.9+commit.e5eed63a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"minAmo\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"id\",\"type\":\"string\"}],\"name\":\"createFunraiser\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"fundraisers\",\"outputs\":[{\"internalType\":\"contract Funraiser\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract Funraiser\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"funrId\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getallFundraisers\",\"outputs\":[{\"internalType\":\"contract Funraiser[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Decentify.sol\":\"FunraiseFactory\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Decentify.sol\":{\"keccak256\":\"0xfe292d05831e22160feab429913ad820995560256002bac3f5a5e7e195e5d3ae\",\"urls\":[\"bzz-raw://ad5fb8c50d5e9b7e31e523bd4cef54711d5876eae65bfcce88394c18744778d3\",\"dweb:/ipfs/Qmcroi14TBg56Xpxzmjwyy3bR7Z1ChVmF57vNmgonwivpY\"]}},\"version\":1}",
@@ -12153,9 +12156,17 @@
     "name": "solc",
     "version": "0.8.9+commit.e5eed63a.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "1635420549813": {
+      "events": {},
+      "links": {},
+      "address": "0xF247bf8AFe74538a5cCCec04f765c607EC477FA7",
+      "transactionHash": "0x9e51baad25cdb8a4c791b6701e7938f780ceb720dcc71528d096233aa3e47967"
+    }
+  },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-10-26T10:16:22.740Z",
+  "updatedAt": "2021-10-28T19:03:53.984Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

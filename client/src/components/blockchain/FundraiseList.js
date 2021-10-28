@@ -51,7 +51,13 @@ export default function FundraiseList() {
                 <Row class="row ">
                     {
                         arr.map((key, value) => {
-                            return <FundCard />;
+                            const prop = {
+                                name  : 'sarvesh raut',
+                                title : "Helps us please!",
+                                date : '10 Nov,2019',
+                                tagline : "Some quick example text to build on the card title and make up the bulk of the card's"
+                            }
+                            return <FundCard  info = {prop} />;
                         })
                     }
                 </Row>
