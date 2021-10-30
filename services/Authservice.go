@@ -44,6 +44,14 @@ func Register(response http.ResponseWriter, request *http.Request) {
 	var aut models.RegisReq
 
 	json.NewDecoder(request.Body).Decode(&aut)
+	var finduser models.RegisReq
+	res := Con.Where("username = ? ", aut.Username).Find(&finduser)
+
+	if res.RowsAffected != 0 {
+		response.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(response).Encode("user already existed with this username")
+		return
+	}
 
 	aut.Uuid = actions.GenerateUUID()
 	var findid models.RegisReq
@@ -93,11 +101,12 @@ func GetProfile(response http.ResponseWriter, request *http.Request) {
 	var resp models.GetProfile
 	var posts []models.Posts
 
-	res1 := Con.Where("userid = ? ", aut.Uuid).Find(&posts)
+	res1 := Con.Where("user_id = ? ", aut.Uuid).Find(&posts)
 
-	if res != nil || res1 != nil {
+	if res.Error != nil || res1.Error != nil {
 		response.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(response).Encode("failed to get the profile")
+		json.NewEncoder(response).Encode(res.Error)
+		return
 	}
 
 	resp.Name = record.Name

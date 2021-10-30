@@ -11,8 +11,7 @@ func CreatePost(post models.PostReg, Con *gorm.DB) (string, string) {
 	//fmt.Println(findid)
 	var savepost models.Posts
 
-	savepost.PostId = findid.PostId
-	savepost.Uuid = GenerateUUID()
+	savepost.PostId = findid.PostId + 1
 	savepost.UserId = post.UserId
 	savepost.Title = post.Title
 	savepost.Tag = post.Tag
@@ -28,7 +27,7 @@ func CreatePost(post models.PostReg, Con *gorm.DB) (string, string) {
 
 	var savebody models.PostBody
 	savebody.Body = post.Body
-	savebody.PostId = findid.PostId
+	savebody.PostId = findid.PostId + 1
 	err = Con.Create(&savebody)
 
 	if err.RowsAffected == 0 || err.Error != nil {

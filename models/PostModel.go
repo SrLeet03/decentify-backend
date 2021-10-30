@@ -2,7 +2,7 @@ package models
 
 type PostReg struct {
 	Name         string `json:"name" bson:"name" `
-	UserId       string `json:"postid" bson:"userid" `
+	UserId       string `json:"userid" bson:"userid" `
 	Body         string `json:"body" bson:"body" `
 	Title        string `json:"title" bson:"title"`
 	Tag          string `json:"tag" bson:"tag"`
@@ -12,7 +12,6 @@ type PostReg struct {
 }
 type Posts struct {
 	PostId       int64  `json:"postid" gorm:"primary_key"`
-	Uuid         string `json:"uuid"`
 	UserId       string `json:"userid" bson:"userid" `
 	Title        string `json:"title" bson:"title"`
 	Tag          string `json:"tag" bson:"tag"`
