@@ -7,5 +7,5 @@ import (
 
 func Migrate(Conn *gorm.DB) {
 
-	Conn.AutoMigrate(models.RegisReq{})
+	Conn.AutoMigrate(models.RegisReq{}, models.Posts{}, models.PostBody{})
 }

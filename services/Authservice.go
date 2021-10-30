@@ -7,6 +7,7 @@ import (
 
 	"github.com/SrLeet03/decentify-backend/actions"
 	"github.com/SrLeet03/decentify-backend/models"
+	"github.com/gorilla/mux"
 )
 
 func Login(response http.ResponseWriter, request *http.Request) {
@@ -69,4 +70,41 @@ func Register(response http.ResponseWriter, request *http.Request) {
 	// }
 	response.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(response).Encode("success")
+}
+
+func GetProfile(response http.ResponseWriter, request *http.Request) {
+	response.Header().Set("content-type", "application/json")
+	response.Header().Set("Access-Control-Allow-Origin", "*")
+	var aut models.AuthReq
+
+	json.NewDecoder(request.Body).Decode(&aut)
+	params := mux.Vars(request)
+	token := params["token"]
+	result, err := actions.ValidateToken(token)
+
+	if result == "" || err != "" {
+		response.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(response).Encode("failed to get the profile , login first to get profile")
+		return
+	}
+	var record models.RegisReq
+	res := Con.Where("uuid = ? ", aut.Uuid).Find(&record)
+
+	var resp models.GetProfile
+	var posts []models.Posts
+
+	res1 := Con.Where("userid = ? ", aut.Uuid).Find(&posts)
+
+	if res != nil || res1 != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(response).Encode("failed to get the profile")
+	}
+
+	resp.Name = record.Name
+	resp.Dob = record.Dob
+	resp.Username = record.Username
+	resp.Posts = posts
+
+	response.WriteHeader(http.StatusAccepted)
+	json.NewEncoder(response).Encode(resp)
 }
