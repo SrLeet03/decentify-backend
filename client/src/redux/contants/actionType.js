@@ -1,0 +1,5 @@
+export const ActionType = {
+     SET_FUNDR  : 'SET_FUNDR',
+     SET_FUNDRS : 'SET_FUNDRS',
+     REMOVE_SELECTED_FUNDR : 'REMOVE_SELECTED_FUNDR',
+}

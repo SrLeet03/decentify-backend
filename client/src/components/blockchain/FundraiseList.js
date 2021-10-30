@@ -2,10 +2,11 @@ import React, { useState , useEffect } from 'react'
 
 
 import axois from 'axios' ; 
-
+import { useSelector  , useDispatch } from 'react-redux';
 import { Row, Button } from 'react-bootstrap';
 
 import FundCard from './FundCard'
+import axios from 'axios';
 
 //import './css/card.css'
 
@@ -16,14 +17,22 @@ const arr = [1, 1, 1, 1, 1, 1, 1];
 export default function FundraiseList() {
 
     const [tag, setTag] = useState("");
-
+    const dispatch = useDispatch() ;  
     useEffect (() =>{
-         
+        
+        const data = axios.get(`${process.env.URL}/getallFundrs`)
+        .then((result) =>{
+            console.log(result) ; 
+        }).catch((err) => {
+            console.log(err) ; 
+        })
+
     } , [tag]) ; 
     const handleselect = (arg) => {
         setTag(arg);
     }
-
+     const fundrlist = useSelector((state) => state) ; 
+     console.log("check" , fundrlist) ; 
     return (
         <div>
             all fundraisers

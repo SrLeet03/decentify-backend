@@ -6,6 +6,7 @@ import FundraiseList from './blockchain/FundraiseList';
 import LandingPage from './source/LandingPage';
 import Notfound from './source/Notfound';
 
+import FundProfile from './blockchain/FundProfile';
 import Navbar from './Navbar';
 
 const Layout = () => {
@@ -19,6 +20,7 @@ const Layout = () => {
             <Switch >
                 <Route  path='/'  exact component={LandingPage }  />
                 <Route  path='/fundraisers' exact component={FundraiseList}/>
+                <Route  path='/fundraisers/:id' exact component={FundProfile}/>
                 <Route  path='/list' exact component={FundraiseList}/>
                 <Route component={Notfound}/>
             </Switch> 
