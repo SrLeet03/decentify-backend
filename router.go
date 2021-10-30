@@ -13,5 +13,6 @@ func Router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/login", services.Login).Methods("POST")
 	router.HandleFunc("/register", services.Register).Methods("POST")
+	router.HandleFunc("/createpost/{token}", services.CreatePost).Methods("POST")
 	return router
 }

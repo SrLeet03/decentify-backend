@@ -56,6 +56,9 @@ func CreateToken(userId string) (string, string) {
 }
 
 func ValidateToken(tokenString string) (string, string) {
+	if tokenString == "" {
+		return "", "invali_token"
+	}
 	token, err := jwt.ParseWithClaims(
 		tokenString,
 		&models.JwtSchema{},
