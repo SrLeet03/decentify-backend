@@ -117,3 +117,29 @@ func GetProfile(response http.ResponseWriter, request *http.Request) {
 	response.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(response).Encode(resp)
 }
+
+type valiRes struct {
+	Res   string `json:"res"`
+	Error string `json:"error"`
+}
+
+func ValidateTok(response http.ResponseWriter, request *http.Request) {
+	response.Header().Set("content-type", "application/json")
+	response.Header().Set("Access-Control-Allow-Origin", "*")
+	params := mux.Vars(request)
+	token := params["token"]
+	result, err := actions.ValidateToken(token)
+	var res valiRes
+
+	if result == "" || err != "" {
+		response.WriteHeader(http.StatusBadRequest)
+		res.Res = ""
+		res.Error = err
+		json.NewEncoder(response).Encode(res)
+		return
+	}
+	res.Res = "true"
+	res.Error = ""
+	response.WriteHeader(http.StatusAccepted)
+	json.NewEncoder(response).Encode(res)
+}

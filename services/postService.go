@@ -35,3 +35,37 @@ func CreatePost(response http.ResponseWriter, request *http.Request) {
 	response.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(response).Encode("new post created successfuly")
 }
+
+func GetPosts(response http.ResponseWriter, request *http.Request) {
+
+	response.Header().Set("content-type", "application/json")
+	response.Header().Set("Access-Control-Allow-Origin", "*")
+
+	params := mux.Vars(request)
+	tag := params["tag"]
+
+	var posts []models.Posts
+
+	if tag == "all categories" {
+		res1 := Con.Find(&posts)
+
+		if res1.Error != nil {
+			response.WriteHeader(http.StatusInternalServerError)
+			json.NewEncoder(response).Encode(res1.Error)
+			return
+		}
+		response.WriteHeader(http.StatusAccepted)
+		json.NewEncoder(response).Encode(posts)
+		return
+	}
+	res1 := Con.Where("tag = ? ", tag).Find(&posts)
+
+	if res1.Error != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(response).Encode(res1.Error.Error())
+		return
+	}
+
+	response.WriteHeader(http.StatusAccepted)
+	json.NewEncoder(response).Encode(posts)
+}

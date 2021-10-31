@@ -18,7 +18,7 @@ func CreatePost(post models.PostReg, Con *gorm.DB) (string, string) {
 	savepost.CreationTime = post.CreationTime
 	savepost.Amount = post.Amount
 	savepost.Days = post.Days
-
+	savepost.Date = post.Date
 	err := Con.Create(&savepost)
 
 	if err.RowsAffected == 0 || err.Error != nil {

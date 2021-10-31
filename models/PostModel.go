@@ -7,14 +7,16 @@ type PostReg struct {
 	Title        string `json:"title" bson:"title"`
 	Tag          string `json:"tag" bson:"tag"`
 	CreationTime string `json:"creationtime" bson:"creationtime"`
+	Date         string `json:"date" bson:"date"`
 	Amount       int64  `json:"amount" bson:"amount"`
 	Days         int64  `json:"days" bson:"days"`
 }
 type Posts struct {
 	PostId       int64  `json:"postid" gorm:"primary_key"`
-	UserId       string `json:"userid" bson:"userid" `
+	UserId       string `json:"userid" bson:"userid"`
 	Title        string `json:"title" bson:"title"`
 	Tag          string `json:"tag" bson:"tag"`
+	Date         string `json:"date" bson:"date"`
 	CreationTime string `json:"creationtime" bson:"creationtime"`
 	Amount       int64  `json:"amount" bson:"amount"`
 	Days         int64  `json:"days" bson:"days"`

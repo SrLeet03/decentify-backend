@@ -15,6 +15,8 @@ func Router() *mux.Router {
 	router.HandleFunc("/register", services.Register).Methods("POST")
 	router.HandleFunc("/createpost/{token}", services.CreatePost).Methods("POST")
 	router.HandleFunc("/profile/{token}", services.GetProfile).Methods("GET")
+	router.HandleFunc("/getpost/{tag}", services.GetPosts).Methods("GET")
+	router.HandleFunc("/validatoken/{tag}", services.ValidateTok).Methods("GET")
 
 	return router
 }
