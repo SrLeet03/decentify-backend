@@ -25,3 +25,18 @@ export const fundrReducer = (state = ini , {type , payload} ) => {
         return state ;    
   }
 }
+
+const auth = {
+     token : localStorage.getItem("token"),
+     userid : localStorage.getItem("userid"),
+     state  :false
+}
+export const authReducer = (state  =  auth, {type , payload}) =>{
+  switch (type) {
+    case ActionType.SET_AUTH: 
+      return {...state , fundr : payload} ;
+
+    default : 
+      return state ;    
+}
+}

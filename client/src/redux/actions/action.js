@@ -13,3 +13,10 @@ export const setFundr = (fundraiser) =>  {
          payload : fundraiser
     };
 };
+
+export const setAuth = (profile) =>  {
+     return {
+          type : ActionType.SET_FUNDR,
+          payload : profile
+     };
+ };

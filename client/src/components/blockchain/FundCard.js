@@ -26,7 +26,7 @@ export default function FundCard({info}) {
                 <Card.Title><FcFile/>{info.title}</Card.Title>
                 <Card.Text>
                     <FaUserCircle/> By: {info.name}<br></br>
-                    <BiChevronRight/> Date: {info.date}<br></br>
+                    <BiChevronRight/> Date: {info.time}, {info.date}<br></br>
                       {info.tagline}.
                 </Card.Text>
                 <Link to={`${url}/${info.title}`} >

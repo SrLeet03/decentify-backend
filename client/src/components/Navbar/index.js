@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import {
 Nav,
 NavLink,
@@ -12,12 +12,37 @@ NavBtnLink,
 import { FaAffiliatetheme } from "react-icons/fa";
 import { FaAmazonPay } from "react-icons/fa";
 import { FaBlogger } from "react-icons/fa";
-
+import { useSelector  } from 'react-redux';
+import { Redirect } from 'react-router';
 import { FaFirefoxBrowser } from "react-icons/fa";
+import Button from '@restart/ui/esm/Button';
 
-    
-
+   
 const Navbar = () => {
+	const state = {} ; 
+
+	useEffect(() => {
+		  state.token = localStorage.getItem("token");
+		  state.userid = localStorage.getItem("userid");
+		  state.state = true;
+	}, []);
+	console.log("check",state);
+	state.token = localStorage.getItem("token");
+	state.userid = localStorage.getItem("userid");
+	state.state = true;
+
+
+	const handleLogout = () =>{
+         localStorage.setItem("token" , "");
+		 state.state = false ; 
+         localStorage.setItem("userid" , "");   
+		 <Redirect
+		 to={{
+		   pathname: "/",
+		 }}
+	   />
+	}
+
 return (
 	<>
 	<Nav>
@@ -37,9 +62,20 @@ return (
 		<NavLink to='/blogs' activeStyle>
 			<FaBlogger/>Blogs
 		</NavLink>
+		{
+			state.state===true ? <NavLink to='/myprofile' activeStyle>
+			<FaBlogger/>Profile
+		               </NavLink>
+			:""
+		}
 		</NavMenu>
+		
 		<NavBtn>
-		<NavBtnLink to='/signup'>Sign In</NavBtnLink>
+			{
+				state.state===true ? <Button onClick = {handleLogout}>Log Out</Button>
+				:<NavBtnLink to='/signup'>Sign Up</NavBtnLink>
+			}
+		
 		</NavBtn>
 	</Nav>
 	</>

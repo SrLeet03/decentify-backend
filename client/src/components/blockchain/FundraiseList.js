@@ -82,11 +82,16 @@ export default function FundraiseList() {
             <div className="justify-content-md-center">
                 <Row class="row ">
                     {
-                        allf.map((key, value) => {
+                        allf.map((value, key) => {
+                            //console.log(value);
                             const prop = {
-                                name: 'sarvesh raut',
-                                title: "Helps us please!",
-                                date: '10 Nov,2019',
+                                name: value.userid,
+                                title: value.title,
+                                time : value.creationtime,
+                                date: value.date,
+                                tag  :value.tag,
+                                amount:value.amount,
+                                days : value.days,
                                 tagline: "Some quick example text to build on the card title and make up the bulk of the card's"
                             }
                             return <FundCard info={prop} />;

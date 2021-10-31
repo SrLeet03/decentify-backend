@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 
-import { fundrsReducer , fundrReducer } from "./reducer"; 
+import { fundrsReducer , fundrReducer , authReducer } from "./reducer"; 
 
 export const reducers =  combineReducers({
      allFundrs : fundrsReducer,
-     fundr : fundrReducer
+     fundr : fundrReducer,
+     auth : authReducer,
 });
