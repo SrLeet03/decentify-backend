@@ -4,11 +4,12 @@ import './css/login.css'
 import { URL } from '../../helper/helper';
 import { useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/actions/action';
-import { Redirect } from 'react-router';
+import { Redirect  , useLocation , useHistory} from 'react-router';
 
 export default function Signup(props) {
 
-
+    const location  = useLocation();
+    const history  = useHistory() ; 
     const res = {
         token : "",
         userid : "",
@@ -38,9 +39,9 @@ export default function Signup(props) {
              localStorage.setItem("token" , res.token );
              localStorage.setItem("userid",res.userid);
              dispatch(setAuth(res));
-             <Redirect
-                    to={{pathname : "/myprofile", state:{ from : props.location } }}
-                    />
+             
+             history.push("/myprofile");
+            
          } )
          .catch((err) => {
             alert(err) 
